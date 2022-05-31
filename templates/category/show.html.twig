@@ -9,7 +9,7 @@
             <div class="media-body">
                 <h2 class="mt-0"> - {{ program.id }} /{{ program.title }}</h1>
                 <p> - {{ program.synopsis }}</p>
-                <a class="navlink" href="{{ path('program_show',  {id : program.id}) }}">Voir la fiche</a>
+                <a class="navlink" href="{{ path('program_show',  {program : program.id}) }}">Voir la fiche</a>
             </div>
     </div>
     {% else %}
