@@ -1,22 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} All programs {% endblock %}
+{% block title %}All programs{% endblock %}
 
 {% block body %}
-   {{ dump(programs) }};
-   <h1>Toutes les séries de la table program :</h1>
-   {% for program in programs %}
-      <div>
-          <h2> {{ loop.index }} / {{ program.title }} - Catégories : {{ program.category.name }} </h2>
-          <p>{{ program.synopsis }}</p>
-          
-          <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
+{% for program in programs %}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="col">
+    <div class="card h-100">
+      <img src="https://i.picsum.photos/id/1003/1181/1772.jpg?hmac=oN9fHMXiqe9Zq2RM6XT-RVZkojgPnECWwyEF1RvvTZk" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ loop.index }} / {{ program.title }}</h5>
+        <p class="card-text">{{ program.category.name }}.</p>
+         <p class="card-text">{{ program.synopsis }}.</p>
+         <a class="navlink mx-auto" href="{{ path("program_show", { program: program.id }) }}">Voir la fiche</a>
       </div>
-   {% else %}
-      Aucune série trouvée.
-   {% endfor %}
-
-   <a href="{{ path('app_index') }}">
-      Retour à l'accueil
-   </a>
+      </div>
+      </div>
+      </div>
+      
+      <div class="card-footer">
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </div>
+         
+        {% else %}
+        Aucune série trouvée.
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
+    {# <h1>Toutes les séries de la table program : </h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+  <div class="col">
+  {% for program in programs %}
+    <div class="card h-100"> 
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body h-100">
+        <h2 class="card-title">{{ loop.index }} / {{ program.title }}</h5>
+        <h2 class="card-text">Category : {{ program.category.name }}</p>
+        <p class="card-text">{{ program.synopsis }}</p>
+         <a class="navlink mx-auto" href="{{ path("program_show", { program: program.id }) }}">Voir la fiche</a>
+          {% else %}
+        Aucune série trouvée.
+        {% endfor %}
+      </div>
+    </div>
+    </div>
+    </div> #}
+   {# {% endblock %} #}
