@@ -2,7 +2,11 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Program;
 use App\Repository\EpisodeRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EpisodeRepository::class)]
@@ -22,9 +26,14 @@ class Episode
     #[ORM\Column(type: 'text')]
     private $synopsis;
 
-    #[ORM\ManyToOne(targetEntity: Season::class, inversedBy: 'episodes')]
+    #[ORM\ManyToOne(targetEntity: Season::class, inversedBy: 'episodes')] 
     #[ORM\JoinColumn(nullable: false)]
     private $season;
+
+    public function __construct()
+    {
+        $this->programs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {

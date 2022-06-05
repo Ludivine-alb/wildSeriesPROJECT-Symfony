@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use App\Repository\CategoryRepository;
@@ -12,6 +13,16 @@ class Category
 {   
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Program::class)]
     private $programs;
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private $id;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: 'Je suis malheureux quand je suis vide.')]
+    #[Assert\Length(max: 255, maxMessage: 'Malheureusement je suis trop gros pour rentrer dans mon champs en BDD.')]
+    private $name;
 
     public function __construct()
     {
@@ -43,16 +54,7 @@ class Category
     }
 
     return $this;
-}
-
-
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    }
 
     public function getId(): ?int
     {
