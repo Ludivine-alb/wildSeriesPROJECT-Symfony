@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use App\Repository\ProgramRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Controller\ProgramController;
@@ -9,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: ProgramRepository::class)]
+#[UniqueEntity('title')]
 class Program
 {
     #[ORM\Id]
@@ -17,9 +20,17 @@ class Program
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank(message: 'Je suis malheureux quand je suis vide.')]
+    #[Assert\Length(max: 255, maxMessage: 'Malheureusement je suis trop gros pour rentrer dans mon champs en BDD.')]
     private $title;
 
     #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank(message:'Si je reste vide, les gens ne vont pas me comprendre.')]
+    #[Assert\Regex(
+        pattern: "/plus belle la vie/i",
+        match: false,
+        message: 'On parle de vraies séries ici, sorry!',
+    )]
     private $synopsis;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -35,11 +46,6 @@ class Program
     public function __construct()
     {
          $this->seasons = new ArrayCollection();
-    }
-
-    public function getPrograms(): Collection
-    {
-        return $this->programs;
     }
 
     public function getId(): ?int
