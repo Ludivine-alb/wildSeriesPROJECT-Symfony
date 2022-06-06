@@ -12,6 +12,7 @@ use App\Entity\Program;
 use App\Entity\Episode;
 use App\Entity\Season;
 use App\Form\ProgramType;
+use App\Repository\CategoryRepository;
 
 #[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
