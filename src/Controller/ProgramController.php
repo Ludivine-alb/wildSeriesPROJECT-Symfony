@@ -62,7 +62,7 @@ class ProgramController extends AbstractController
         if (!$season) {
             throw $this->createNotFoundException('The product does not exist');
         }
-        $episodes = $season->getEpisodes();
+       $episodes = $season->getEpisodes();
         return $this->render('program/season_show.html.twig', [
             'program' => $program,
             'season' => $season,
