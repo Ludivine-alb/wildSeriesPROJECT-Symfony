@@ -26,7 +26,8 @@ class Category
 
     public function __construct()
     {
-    $this->programs = new ArrayCollection();
+     $this->programs = new ArrayCollection();
+     
     }
 
     public function getPrograms(): Collection
